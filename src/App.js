@@ -1,25 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useForm } from 'react-hook-form';
+
+import { TextField, Button, Grid } from '@material-ui/core';
 
 function App() {
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = data => console.log(data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container spacing={2} style={{ margin: '8px' }}>
+        <Grid item xs={3}>
+          <TextField
+            name="name"
+            label="Nome"
+            inputRef={register({ required: true })}
+            error={errors.name}
+            variant="outlined"
+            fullWidth />
+        </Grid>
+
+        <Grid item xs={3}>
+          <TextField
+            name="email"
+            label="Email"
+            inputRef={register({ required: true })}
+            error={errors.name}
+            variant="outlined"
+            fullWidth />
+        </Grid>
+
+        <Grid item xs={3}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth>Salvar</Button>
+        </Grid>
+      </Grid>
+    </form>
   );
 }
 
